@@ -1,52 +1,352 @@
-# Getting Started
+# Kosta Market
 
-## 프로젝트 소개
-**Kosta-Market** 은 **Spring Boot + MyBatis** 기반으로 구현되었으며, 쇼핑몰 서비스 운용 시
-반드시 필요한 3가지 요소인 **회원**, **상품**, **결제** 도메인으로 핵심적인 기능을 구축하는데 목적을 두고 있습니다.
-세부적인 기능은 아래와 같습니다.
-
-<details>
-<summary> <b>기능 명세서</b> </summary>
-
-- 회원 관련
-    - 회원가입
-    - 로그인
-    - 로그아웃
-    - 회원탈퇴
-- 상품 관련
-    - 상품 등록
-    - 상품 정보 읽기
-    - 상품 수정
-    - 상품 제거
-- 결제 관련
-    - 주문
-</details>
+## 프로젝트 개요 및 목적
+**Kosta-Market** 은 **Spring Boot + MyBatis** 기반으로 구현된 쇼핑몰 프로젝트입니다. <br>
+이 프로젝트는 쇼핑몰 서비스에 필수로 포함되는 3가지 요소 **‘회원’**, **‘상품’**, **‘결제’** 도메인으로 <br>
+핵심적인 기능을 개발하고 서비스를 구축해보는 것에 목적을 두고 있습니다. 
 
 <br>
 
-## 개발인원
-  - 박주현
-    - Usecase Diagram 작성
-  - 김정열
+## 팀 구성 및 역할
   - 장현준
-    - Usecase Diagram 작성
+  - 김정열
+  - 김태훈
   - 정완규
-    - 문서 작성
-
-<br>
-
-## 동작
-1. 1
-2. 2
-
 <br>
 
 ## 프로젝트 구조
-  - 쇼핑몰 프로젝트
-      - 회원 도메인
-      - 상품 도메인
-      - 결제 도메인
-  - 리소스 템플릿
+### 1) E-R Diagram
+![image](https://user-images.githubusercontent.com/35141349/187655577-0d01cd59-7bba-44e7-8422-702a6bddac25.png)
+
+### 2) Class Diagram
+- image Here
+
+### 3) Usecase Diagram
+- image Here
+
+### 4) 프로젝트 패키지 구조 
+<pre>
+kosta-market
+    └─ src
+        └─ main
+            ├─ java
+            │   └─ kosta
+            │       └─ market
+            │           ├─ domain
+            │           │   ├─ user
+            │           │   │   ├─ controller
+            │           │   │   ├─ service 
+            │           │   │   └─ model 
+            │           │   ├─ product
+            │           │   │   ├─ controller
+            │           │   │   ├─ service 
+            │           │   │   └─ model 
+            │           │   └─ order
+            │           │       ├─ controller
+            │           │       ├─ service 
+            │           │       └─ model 
+            │           └─ global
+            │               ├─ error
+            │               │   └─ exception
+            │               └─ util
+            └── resources
+                 ├─ static
+                 │   ├─ css
+                 │   ├─ fonts
+                 │   ├─ img
+                 │   ├─ js
+                 │   ├─ sass
+                 │   └─ webfonts
+                 ├─ data.sql
+                 ├─ init.sql
+                 └─ application.yml
+</pre>
+
+<br>
+
+## API 기본 규격
+
+### 1) 데이터 표현규격
+ * JSON : 데이터를 교환하기 위한 API의 메시지 형식은 JSON 방식을 사용함
+> JSON (JavaScript Object Notation) <br>
+> : 용량이 적은 메시지를 송수신하기 위해 데이터 객체를 속성·값(Key:Value) 형식으로 표현하는 개방형 표준 메시지 형식
+
+<br>
+
+ * 메시지 인코딩 방식 : 메시지 전송을 위한 인코딩 방식은 UTF-8 을 사용함
+> UTF-8 <br>
+> : ASCII 코드를 확장하여 전 세계의 모든 문자코드를 표현할 수 있는 표준 인코딩 방식으로써, 범용성이 높아 호환성이 우수
+
+ * 명명 규칙 : API 명세 내 URI와 파라미터의 명명으로 'Under Scores'표기법(각 소문자 영단어가 밑줄 문자(_)로 연결)을 사용함
+ 
+ * 시간 표현 형식 : RFC3339 표준규격을 사용함<br>
+<pre>예시) 2099-01-01</pre>
+
+<br>
+ 
+### 2) 데이터 통신규격
+ 
+ * 메시지 교환 방식 : API 요청 및 응답(메시지) 교환방식은 REST 방식을 사용함
+> REST (REpresentational State Transfer) <br>
+> : HTTP 기반으로 데이터를 전달하는 프레임워크로써, URI로 정보의 자원을 표현하고 자원에 대한 행위를 HTTP 메소드(GET, POST 등)로 표현 <br>
+>   다만, 본 프로젝트는 REST 방식을 도입했을 뿐 RESTful API 설계 규칙과는 어긋나는 부분이 있음
+<br>
+
+ * URI 계층 구조 : 도메인별 웹서버 상의 자원을 고유하게 식별하고, 위치를 지정할 수 있도록 URI 계층 구조는 <br>
+ <code> (base path) / (domain) / (resource)</code>  형태로 구성됨
+> (base path) : API 서버의 도메인명 또는 IP, 로컬 실행 시 "http://127.0.0.1" <br>
+> (domain) : 도메인 정보, 회원(=user), 상품(=product), 결제(=order) 중 하나가 지정됨 <br>
+> (resource) : 자원에 대한 고유한 값
+
+<pre>예시) "회원 로그인을 시도하는 API" 인 경우
+
+http://127.0.0.1/<b>user</b>/signin
+</pre>
+
+
+## API 목록
+<details>
+<summary> <h3> 회원 도메인 </h3> </summary>
+
+
+
+
+<details>
+<summary> <h4> [회원] 로그인 </h4> </summary>
+ 아이디, 패스워드를 입력하여 사용자 계정에 접근합니다. <br><br>
+
+<pre><b>POST</b> /api/user/signin HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+
+| Name     | Type   | Description           | mandatory |
+| -------- | ------ | --------------------- | -------- |
+| username | String | 사용자 계정 ID         |  O       |
+| password | String | 사용자 계정 PW         |  O       |
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+- No Response Body
+</details>
+
+
+
+
+
+<details>
+<summary> <h4> [회원] 회원가입 </h4> </summary>
+ 아이디, 패스워드, 이름, 전화번호를 입력받아 새로운 계정을 생성합니다. <br><br>
+
+<pre><b>POST</b> /api/user/signup HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+
+| Name     | Type   | Description           | mandatory |
+| -------- | ------ | --------------------- | -------- |
+| username | String | 사용자 계정 ID           |  O       |
+| password | String | 사용자 계정 PW           |  O       |
+| name     | String | 이름                    |  O       |
+| contact  | String | 전화번호                |  O       |
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+- No Response Body
+</details>
+
+
+
+
+
+
+<details>
+<summary> <h4> [회원] 회원정보 불러오기 </h4> </summary>
+ 접속한 계정의 회원정보를 불러옵니다. <br><br>
+
+<pre><b>GET</b> /api/user HTTP/1.1</pre>
+
+<h4> Request </h4>
+- No Request Param & Body
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+
+| Name     | Type   | Description           |
+| -------- | ------ | --------------------- |
+| userId   | String | 사용자 계정 고유 식별번호   |  
+| username | String | 사용자 계정 ID           |
+| name     | String | 사용자 이름              |
+| contact  | String | 전화번호                |
+| sellerId  | String | 판매자 등록 고유번호      |
+
+</details>
+
+
+
+<details>
+<summary> <h4> [회원] 회원정보 변경 </h4> </summary>
+ 입력한 정보로 회원정보를 변경합니다. <br><br>
+
+<pre><b>PUT</b> /api/user HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+
+| Name     | Type   | Description           | mandatory |
+| -------- | ------ | --------------------- | -------- |
+| password | String | 사용자 계정 PW           |  O       |
+| contact  | String | 전화번호                |  O       |
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+- No Response Body
+
+</details>
+
+
+
+
+<details>
+<summary> <h4> [회원] 회원탈퇴 </h4> </summary>
+ 비밀번호가 일치하면 사용자 계정을 삭제합니다. <br><br>
+
+<pre><b>DELETE</b> /api/user HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+
+| Name     | Type   | Description           | mandatory |
+| -------- | ------ | --------------------- | -------- |
+| password | String | 사용자 계정 PW           |  O       |
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+- No Response Body
+
+</details>
+
+
+
+
+
+<details>
+<summary> <h4> [회원] 배송지 등록 </h4> </summary>
+ 새로운 배송지 정보를 등록합니다. <br><br>
+
+<pre><b>POST</b> /api/user/address HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+
+| Name     | Type   | Description           | mandatory |
+| -------- | ------ | --------------------- | -------- |
+| title | String | 배송지명           |  O       |
+| deliveryPlace | String | 배송지 주소           |  O       |
+| recipient | String | 상품 수령인           |  O       |
+| contact  | String | 전화번호                |  O       |
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+- No Response Body
+
+</details>
+
+
+
+<details>
+<summary> <h4> [회원] 배송지 불러오기 </h4> </summary>
+ 배송지 정보를 가져옵니다. <br><br>
+
+<pre><b>GET</b> /api/user/address HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+- No Request Param & Body
+
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+
+| Name     | Type   | Description           |
+| -------- | ------ | --------------------- |
+| addressId  | Integer | 배송지 고유 식별번호    |
+| userId  | Integer | 사용자 계정 고유 식별번호    |
+| title | String | 배송지명           |
+| deliveryPlace | String | 배송지 주소           |
+| recipient | String | 상품 수령인           | 
+| isDefaultAddress | String | 기본 배송지 여부 (Y/N) |
+| contact  | String | 전화번호                |
+
+
+</details>
+
+
+
+
+
+<details>
+<summary> <h4> [회원] 배송지 삭제 </h4> </summary>
+ 선택한 배송지 정보를 삭제합니다. <br><br>
+
+<pre><b>DELETE</b> /api/user/address HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+| Name     | Type   | Description           |
+| -------- | ------ | --------------------- |
+| addressId  | Integer | 배송지 고유 식별번호    |
+
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+
+</details>
+
+
+
+<details>
+<summary> <h4> 판매자 등록 </h4> </summary>
+ 상품 판매 권한을 취득하기 위해 판매자 정보를 등록합니다. <br><br>
+
+<pre><b>POST</b> /api/user/seller HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+| Name     | Type   | Description           |
+| -------- | ------ | --------------------- |
+| businessRegNo  | String | 사업자 등록번호    |
+
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+
+</details>
+
+
+
+<details>
+<summary> <h4> 판매자 권한 제거 </h4> </summary>
+ 등록된 판매자 정보를 제거합니다. <br><br>
+
+<pre><b>DELETE</b> /api/user/seller HTTP/1.1</pre>
+
+<h4> RequestBody </h4>
+| Name     | Type   | Description           |
+| -------- | ------ | --------------------- |
+| businessRegNo  | String | 사업자 등록번호    |
+
+
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+
+</details>
+
+
+</details>
+
+
+
+<details>
+<summary> <h3> 상품 도메인 </h3> </summary>
+</details>
+
+<details>
+<summary> <h3> 결제 도메인 </h3> </summary>
+</details>
+
 
 <br>
 
@@ -154,57 +454,3 @@
 </table>
 
 <br>
-
-## 프로젝트 가시화
-### Usecase Diagram
-### E-R Diagram
-### Class Diagram
-
-- 요구사항 명세서
-  [회원 테이블]
-- 회원번호(PK, Auto_Increment, Int)
-- 아이디(이메일)
-- 비밀번호    ※ 서버에서  단방향 암호화
-- 이름
-- 연락처
-
-[판매자 테이블]
-- 판매자번호(PK)
-- 회원번호(FK)
-- 사업자번호
-
-[상품 등록 테이블]
-- 상품번호(FK)
-- 회원번호(FK)
-
-[상품 상세 테이블]
-- 상품번호(PK)
-- 카테고리번호(FK)
-- 상품명
-- 상품가격
-- 상품 이미지(url) - UUID 로 파일명 변경
-- 상품설명
-- 재고개수
-
-[카테고리 테이블]
-- 카테고리번호(PK)
-- 분류
-
-[주문 테이블]
-- 주문번호(FK)
-- 회원번호(FK)
-
-[주문 상세 테이블]
-- 주문번호(PK)
-- 상품번호(FK)
-- 구매개수
-- 주문금액
-- 결제시간
-- 결제수단 (카드, 무통장) 1 카드, 2 무통장, +@ 환불용
-- 주문상태 (환불 관련 사용)
-
-[주소 테이블]
-- 회원번호(FK)
-- 배송지
-- 기본주소 여부
----
