@@ -117,16 +117,22 @@ http://127.0.0.1/<b>user</b>/signin
 
 <pre><b>POST</b> /api/user/signin HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
+<br>
+<h4> Request </h4>
+<h5> - Request Body </h5>
 
-| Name     | Type   | Description           | mandatory |
+| Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
 | username | String | 사용자 계정 ID         |  O       |
 | password | String | 사용자 계정 PW         |  O       |
 
+<br>
 <h4> Response </h4>
+<h5> - 성공 시 </h5>
 <pre>HTTP/1.1 200 OK</pre>
-- No Response Body
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
 </details>
 
 
@@ -139,20 +145,25 @@ http://127.0.0.1/<b>user</b>/signin
 
 <pre><b>POST</b> /api/user/signup HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
-
-| Name     | Type   | Description           | mandatory |
+<br>
+<h4> Request </h4>
+<h5> - Request Body </h5>
+  
+| Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
 | username | String | 사용자 계정 ID           |  O       |
 | password | String | 사용자 계정 PW           |  O       |
 | name     | String | 이름                    |  O       |
 | contact  | String | 전화번호                |  O       |
 
+<br>
 <h4> Response </h4>
+<h5> - 성공 시 </h5>
 <pre>HTTP/1.1 200 OK</pre>
-- No Response Body
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
 </details>
-
 
 
 
@@ -177,7 +188,7 @@ http://127.0.0.1/<b>user</b>/signin
 | name     | String | 사용자 이름              |
 | contact  | String | 전화번호                |
 | sellerId  | String | 판매자 등록 고유번호      |
-
+<br><br>
 </details>
 
 
@@ -190,7 +201,7 @@ http://127.0.0.1/<b>user</b>/signin
 
 <h4> RequestBody </h4>
 
-| Name     | Type   | Description           | mandatory |
+| Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
 | password | String | 사용자 계정 PW           |  O       |
 | contact  | String | 전화번호                |  O       |
@@ -198,12 +209,13 @@ http://127.0.0.1/<b>user</b>/signin
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
 - No Response Body
-
+<br><br>
 </details>
 
 
 
 
+  
 <details>
 <summary> <h4> [회원] 회원탈퇴 </h4> </summary>
  비밀번호가 일치하면 사용자 계정을 삭제합니다. <br><br>
@@ -212,14 +224,14 @@ http://127.0.0.1/<b>user</b>/signin
 
 <h4> RequestBody </h4>
 
-| Name     | Type   | Description           | mandatory |
+| Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
 | password | String | 사용자 계정 PW           |  O       |
 
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
 - No Response Body
-
+<br><br>
 </details>
 
 
@@ -234,7 +246,7 @@ http://127.0.0.1/<b>user</b>/signin
 
 <h4> RequestBody </h4>
 
-| Name     | Type   | Description           | mandatory |
+| Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
 | title | String | 배송지명           |  O       |
 | deliveryPlace | String | 배송지 주소           |  O       |
@@ -244,11 +256,13 @@ http://127.0.0.1/<b>user</b>/signin
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
 - No Response Body
-
+<br><br>
 </details>
 
 
 
+  
+  
 <details>
 <summary> <h4> [회원] 배송지 불러오기 </h4> </summary>
  배송지 정보를 가져옵니다. <br><br>
@@ -271,8 +285,7 @@ http://127.0.0.1/<b>user</b>/signin
 | recipient | String | 상품 수령인           | 
 | isDefaultAddress | String | 기본 배송지 여부 (Y/N) |
 | contact  | String | 전화번호                |
-
-
+<br><br>
 </details>
 
 
@@ -293,11 +306,13 @@ http://127.0.0.1/<b>user</b>/signin
 
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
-
+<br><br>
 </details>
 
 
 
+  
+  
 <details>
 <summary> <h4> 판매자 등록 </h4> </summary>
  상품 판매 권한을 취득하기 위해 판매자 정보를 등록합니다. <br><br>
@@ -312,9 +327,11 @@ http://127.0.0.1/<b>user</b>/signin
 
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
-
+<br><br>
 </details>
 
+  
+  
 
 
 <details>
@@ -324,18 +341,21 @@ http://127.0.0.1/<b>user</b>/signin
 <pre><b>DELETE</b> /api/user/seller HTTP/1.1</pre>
 
 <h4> RequestBody </h4>
-| Name     | Type   | Description           |
-| -------- | ------ | --------------------- |
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | ---------- |
 | businessRegNo  | String | 사업자 등록번호    |
 
 
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
-
+| Name     | Type   | Description           |
+| -------- | ------ | --------------------- |
+| businessRegNo  | String | 사업자 등록번호    |
+</details>
+<br><br>
 </details>
 
 
-</details>
 
 
 
@@ -343,8 +363,249 @@ http://127.0.0.1/<b>user</b>/signin
 <summary> <h3> 상품 도메인 </h3> </summary>
 </details>
 
+
+
+
+
+
+
+
+
+
+
+
+
 <details>
 <summary> <h3> 결제 도메인 </h3> </summary>
+
+
+<details>
+<summary> <h4> [결제] 상품 주문하기 </h4> </summary>
+상품 고유 식별번호와 주문 수량을 전달받아 상품을 주문합니다. <br><br>
+
+<pre><b>POST</b> /api/order HTTP/1.1</pre>
+
+<br>
+<h4> Request </h4>
+<h5> - Query Param </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| productList | String | <b>상품 고유 식별번호</b> 및 <b>주문 수량</b>이 포함된<br> 문자열 리스트로 아래와 같은 형태 <br><br>(상품):(수량), ... 형태<br><br> 예) ?productList=13:3,14:2          |  O       |
+
+  
+<h5> - Request Body </h5>
+
+  | Name          | Type    | Description           | Mandatory |
+  | --------      | ------  | --------------------- | --------- |
+  | addressId     | Integer | 배송지 고유 식별번호       | O |
+  | paymentMethod | String  | 결제 방법 <br> 휴대폰 : "PHONE", 카드 : "CARD", 계좌이체 "CREDIT" 를 식별하는 값 | O |
+
+<br>
+<h4> Response </h4>
+<pre>HTTP/1.1 200 OK</pre>
+
+| Name     | Type   | Description           |
+| -------- | ------ | --------------------- |
+| addressId  | Integer | 배송지 고유 식별번호    |
+  
+<br><br>
+</details>
+  
+  
+  
+  
+  
+<details>
+<summary> <h4> [결제] 주문 리스트 불러오기 </h4> </summary>
+ 일반 사용자 또는 판매자를 구분하여, 상품 구매내역 또는 상품 판매내역을 불러옵니다. <br><br>
+
+<pre><b>GET</b> /api/order/sheet/list HTTP/1.1</pre>
+
+<br>
+<h4> Request </h4>
+<h5> - Query Param </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| userType | String | 주문 리스트 형태를 구분하는 값<br> 일반 사용자는 'BUYER', 판매자는 'SELLER' 로 구분함  |  O       |
+
+<br>
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| orderId | Integer | 주문 고유 식별번호  |  
+| orderDate | String | 주문 시간 (Unix timestamp, 13 digits) |
+| paymentPrice | Integer | 결제 금액 |
+| paymentMethod | String | 결제 방법 |
+| deliveryPlace | String | 배송지 주소 |
+| contact | String | 수령인 연락처 |
+| recipient | String | 수령인 |
+| orderList | Array | 주문한 상품 목록 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+  
+  
+  
+  
+  
+<details>
+<summary> <h4> [결제] 주문 상세정보 </h4> </summary>
+ 특정 주문서의 상세 내역을 가져옵니다. <br><br>
+
+<pre><b>GET</b> /api/order/sheet/{orderId} HTTP/1.1</pre>
+
+<br>
+<h4> Request </h4>
+<h5> - Path Variable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| orderId | Integer | 주문 고유 식별번호 |  O       |
+
+<br>
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| orderId | Integer | 주문 고유 식별번호  |  
+| orderDate | String | 주문 시간 (Unix timestamp, 13 digits) |
+| paymentPrice | Integer | 결제 금액 |
+| paymentMethod | String | 결제 방법 |
+| deliveryPlace | String | 배송지 주소 |
+| contact | String | 수령인 연락처 |
+| recipient | String | 수령인 |
+| orderList | Array | 주문한 상품 목록 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+  
+  
+  
+  
+  
+<details>
+<summary> <h4> [결제] 상품 교환신청 </h4> </summary>
+ 결제한 상품의 주문 상태를 "교환신청" 으로 변경합니다.  <br><br>
+
+<pre><b>PATCH</b> /api/order/sheet/{orderId}/exchange HTTP/1.1</pre>
+
+<br>
+<h4> Request </h4>
+<h5> - Query Param </h5>
+
+| Name     | Type    | Description    | Mandatory |
+| -------- | ------- | -------------- | -------- |
+| orderId  | Integer | 주문 고유 식별번호  |      O  |
+
+<h5> - Request Param </h5>
+
+| Name      | Type    | Description    | Mandatory |
+| --------- | ------- | -------------- | -------- |
+| productId | Integer | 상품 고유 식별번호  |  O       |
+
+<br>
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+  
+  
+  
+  
+  
+<details>
+<summary> <h4> [결제] 주문 취소/환불  </h4> </summary>
+ 결제한 상품의 주문 상태를 "취소/환불" 으로 변경합니다.  <br><br>
+
+<pre><b>PATCH</b> /api/order/sheet/{orderId}/cancel HTTP/1.1</pre>
+
+<br>
+<h4> Request </h4>
+<h5> - Query Param </h5>
+
+| Name     | Type    | Description    | Mandatory |
+| -------- | ------- | -------------- | -------- |
+| orderId  | Integer | 주문 고유 식별번호  |      O  |
+
+<h5> - Request Param </h5>
+
+| Name      | Type    | Description    | Mandatory |
+| --------- | ------- | -------------- | -------- |
+| productId | Integer | 상품 고유 식별번호  |  O       |
+
+<br>
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+  
+  
+  
+  
+  
+<details>
+<summary> <h4> [결제] 상품 구매확정 </h4> </summary>
+ 결제한 상품의 주문 상태를 "구매확정" 으로 변경합니다.  <br><br>
+
+<pre><b>PATCH</b> /api/order/sheet/{orderId}/confirm HTTP/1.1</pre>
+
+<br>
+<h4> Request </h4>
+<h5> - Query Param </h5>
+
+| Name     | Type    | Description    | Mandatory |
+| -------- | ------- | -------------- | -------- |
+| orderId  | Integer | 주문 고유 식별번호  |      O  |
+
+<h5> - Request Param </h5>
+
+| Name      | Type    | Description    | Mandatory |
+| --------- | ------- | -------------- | -------- |
+| productId | Integer | 상품 고유 식별번호  |  O       |
+
+<br>
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+  
+  
+  
+  
+
 </details>
 
 
