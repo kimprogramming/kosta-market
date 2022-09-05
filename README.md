@@ -402,23 +402,19 @@ http://127.0.0.1/<b>user</b>/signin
 
 | Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
-| productList | String | <b>상품 고유 식별번호</b> 및 <b>주문 수량</b>이 포함된<br> 문자열 리스트로 아래와 같은 형태 <br><br>(상품):(수량), ... 형태<br><br> 예) ?productList=13:3,14:2          |  O       |
+| productList | String | <b>상품 고유 식별번호</b> 및 <b>주문 수량</b>이 포함된<br> 문자열 리스트로 아래와 같은 형태 <br><br>(상품):(수량), ... 형태<br><br> 예) ?productList=13:3,14:2          |  <center> O </center> |
 
   
 <h5> - Request Body </h5>
 
   | Name          | Type    | Description           | Mandatory |
   | --------      | ------  | --------------------- | --------- |
-  | addressId     | Integer | 배송지 고유 식별번호       | O |
+  | addressId     | Integer | 배송지 고유 식별번호       |  <center>O</center>  |
   | paymentMethod | String  | 결제 방법 <br> 휴대폰 : "PHONE", 카드 : "CARD", 계좌이체 "CREDIT" 를 식별하는 값 | O |
 
 <br>
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
-
-| Name     | Type   | Description           |
-| -------- | ------ | --------------------- |
-| addressId  | Integer | 배송지 고유 식별번호    |
   
 <br><br>
 </details>
@@ -428,18 +424,14 @@ http://127.0.0.1/<b>user</b>/signin
   
   
 <details>
-<summary> <h4> [결제] 주문 리스트 불러오기 </h4> </summary>
+<summary> <h4> [결제] 주문 리스트 불러오기 (일반 사용자) </h4> </summary>
  일반 사용자 또는 판매자를 구분하여, 상품 구매내역 또는 상품 판매내역을 불러옵니다. <br><br>
 
-<pre><b>GET</b> /api/order/sheet/list HTTP/1.1</pre>
+<pre><b>GET</b> /api/order/buyer HTTP/1.1</pre>
 
 <br>
 <h4> Request </h4>
-<h5> - Query Param </h5>
-
-| Name     | Type   | Description           | Mandatory |
-| -------- | ------ | --------------------- | -------- |
-| userType | String | 주문 리스트 형태를 구분하는 값<br> 일반 사용자는 'BUYER', 판매자는 'SELLER' 로 구분함  |  O       |
+<h5> - URL Only </h5>
 
 <br>
 <h4> Response </h4>
@@ -458,6 +450,44 @@ Content-Type: application/json;charset=UTF-8
 | contact | String | 수령인 연락처 |
 | recipient | String | 수령인 |
 | orderList | Array | 주문한 상품 목록 |
+| orderList.productId | Integer | 상품 고유 식별변호 |
+| orderList.orderQuantity | Integer | 주문 수량 |
+| orderList.orderPrice | Integer | 결제 금액 |
+| orderList.productName | String | 상품명 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+  
+
+
+<details>
+<summary> <h4> [결제] 주문 리스트 불러오기 (판매자) </h4> </summary>
+ 일반 사용자 또는 판매자를 구분하여, 상품 구매내역 또는 상품 판매내역을 불러옵니다. <br><br>
+
+<pre><b>GET</b> /api/order/seller HTTP/1.1</pre>
+
+<br>
+<h4> Request </h4>
+<h5> - URL Only </h5>
+
+<br>
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| orderId | Integer | 주문 고유 식별번호  |  
+| orderDate | String | 주문 시간 (Unix timestamp, 13 digits) |
+| orderState | String | 주문 상태 |
+| orderPrice | Integer | 결제 금액 |
+| orderQuantity | Integer | 주문 수량 |
+| productId | Integer | 상품 고유 식별변호 |
+| productName | String | 상품명 |
 
 <h5> - 실패 시 </h5>
 <pre>HTTP/1.1 404 Not Found</pre>
@@ -472,7 +502,7 @@ Content-Type: application/json;charset=UTF-8
 <summary> <h4> [결제] 주문 상세정보 </h4> </summary>
  특정 주문서의 상세 내역을 가져옵니다. <br><br>
 
-<pre><b>GET</b> /api/order/sheet/{orderId} HTTP/1.1</pre>
+<pre><b>GET</b> /api/order/{orderId} HTTP/1.1</pre>
 
 <br>
 <h4> Request </h4>
@@ -480,7 +510,7 @@ Content-Type: application/json;charset=UTF-8
 
 | Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
-| orderId | Integer | 주문 고유 식별번호 |  O       |
+| orderId | Integer | 주문 고유 식별번호 | <center> O </center>      |
 
 <br>
 <h4> Response </h4>
@@ -493,12 +523,17 @@ Content-Type: application/json;charset=UTF-8
 | -------- | ------ | --------------------- | 
 | orderId | Integer | 주문 고유 식별번호  |  
 | orderDate | String | 주문 시간 (Unix timestamp, 13 digits) |
+| orderList | Array | 주문한 상품 목록 |
+| orderList.productId | Integer | 상품 고유 식별변호 |
+| orderList.orderQuantity | Integer | 주문 수량 |
+| orderList.orderState | String | 주문 상태 |
+| orderList.orderPrice | Integer | 결제 금액 |
+| orderList.productName | String | 상품명 |
 | paymentPrice | Integer | 결제 금액 |
 | paymentMethod | String | 결제 방법 |
 | deliveryPlace | String | 배송지 주소 |
 | contact | String | 수령인 연락처 |
 | recipient | String | 수령인 |
-| orderList | Array | 주문한 상품 목록 |
 
 <h5> - 실패 시 </h5>
 <pre>HTTP/1.1 404 Not Found</pre>
@@ -513,7 +548,7 @@ Content-Type: application/json;charset=UTF-8
 <summary> <h4> [결제] 상품 교환신청 </h4> </summary>
  결제한 상품의 주문 상태를 "교환신청" 으로 변경합니다.  <br><br>
 
-<pre><b>PATCH</b> /api/order/sheet/{orderId}/exchange HTTP/1.1</pre>
+<pre><b>PATCH</b> /api/order/{orderId}/exchange HTTP/1.1</pre>
 
 <br>
 <h4> Request </h4>
@@ -521,13 +556,13 @@ Content-Type: application/json;charset=UTF-8
 
 | Name     | Type    | Description    | Mandatory |
 | -------- | ------- | -------------- | -------- |
-| orderId  | Integer | 주문 고유 식별번호  |      O  |
+| orderId  | Integer | 주문 고유 식별번호  |  <center> O </center>  |
 
 <h5> - Request Param </h5>
 
 | Name      | Type    | Description    | Mandatory |
 | --------- | ------- | -------------- | -------- |
-| productId | Integer | 상품 고유 식별번호  |  O       |
+| productId | Integer | 상품 고유 식별번호  | <center> O </center>    |
 
 <br>
 <h4> Response </h4>
@@ -549,7 +584,7 @@ Content-Type: application/json;charset=UTF-8
 <summary> <h4> [결제] 주문 취소/환불  </h4> </summary>
  결제한 상품의 주문 상태를 "취소/환불" 으로 변경합니다.  <br><br>
 
-<pre><b>PATCH</b> /api/order/sheet/{orderId}/cancel HTTP/1.1</pre>
+<pre><b>PATCH</b> /api/order/{orderId}/cancel HTTP/1.1</pre>
 
 <br>
 <h4> Request </h4>
@@ -557,13 +592,13 @@ Content-Type: application/json;charset=UTF-8
 
 | Name     | Type    | Description    | Mandatory |
 | -------- | ------- | -------------- | -------- |
-| orderId  | Integer | 주문 고유 식별번호  |      O  |
+| orderId  | Integer | 주문 고유 식별번호  |  <center> O </center>  |
 
 <h5> - Request Param </h5>
 
 | Name      | Type    | Description    | Mandatory |
 | --------- | ------- | -------------- | -------- |
-| productId | Integer | 상품 고유 식별번호  |  O       |
+| productId | Integer | 상품 고유 식별번호  |  <center> O </center>      |
 
 <br>
 <h4> Response </h4>
@@ -585,7 +620,7 @@ Content-Type: application/json;charset=UTF-8
 <summary> <h4> [결제] 상품 구매확정 </h4> </summary>
  결제한 상품의 주문 상태를 "구매확정" 으로 변경합니다.  <br><br>
 
-<pre><b>PATCH</b> /api/order/sheet/{orderId}/confirm HTTP/1.1</pre>
+<pre><b>PATCH</b> /api/order/{orderId}/confirm HTTP/1.1</pre>
 
 <br>
 <h4> Request </h4>
@@ -593,13 +628,13 @@ Content-Type: application/json;charset=UTF-8
 
 | Name     | Type    | Description    | Mandatory |
 | -------- | ------- | -------------- | -------- |
-| orderId  | Integer | 주문 고유 식별번호  |      O  |
+| orderId  | Integer | 주문 고유 식별번호  |   <center> O </center>   |
 
 <h5> - Request Param </h5>
 
 | Name      | Type    | Description    | Mandatory |
 | --------- | ------- | -------------- | -------- |
-| productId | Integer | 상품 고유 식별번호  |  O       |
+| productId | Integer | 상품 고유 식별번호  |  <center> O </center>       |
 
 <br>
 <h4> Response </h4>
