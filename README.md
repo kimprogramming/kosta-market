@@ -200,6 +200,8 @@ http://127.0.0.1/<b>user</b>/signin
 <h4> Request </h4>
 - No Request Param & Body
 
+<br>
+
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
 
@@ -210,6 +212,7 @@ http://127.0.0.1/<b>user</b>/signin
 | name     | String | 사용자 이름              |
 | contact  | String | 전화번호                |
 | sellerId  | String | 판매자 등록 고유번호      |
+  
 <br><br>
 </details>
 
@@ -221,16 +224,20 @@ http://127.0.0.1/<b>user</b>/signin
 
 <pre><b>PUT</b> /api/user HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
+<h4> Request </h4>
+<h5> - Request Body </h5>  
 
 | Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
 | password | String | 사용자 계정 PW           |  O       |
 | contact  | String | 전화번호                |  O       |
 
+<br>
 <h4> Response </h4>
+<h5> - 성공 시 </h5>
 <pre>HTTP/1.1 200 OK</pre>
-- No Response Body
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
 <br><br>
 </details>
 
@@ -244,15 +251,19 @@ http://127.0.0.1/<b>user</b>/signin
 
 <pre><b>DELETE</b> /api/user HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
+<h4> Request </h4>
+<h5> - Request Body </h5>
 
 | Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
 | password | String | 사용자 계정 PW           |  O       |
 
+<br>
 <h4> Response </h4>
+<h5> - 성공 시 </h5>
 <pre>HTTP/1.1 200 OK</pre>
-- No Response Body
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
 <br><br>
 </details>
 
@@ -266,7 +277,8 @@ http://127.0.0.1/<b>user</b>/signin
 
 <pre><b>POST</b> /api/user/address HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
+<h4> Request </h4>
+<h5> - Request Body </h5>
 
 | Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | -------- |
@@ -275,9 +287,12 @@ http://127.0.0.1/<b>user</b>/signin
 | recipient | String | 상품 수령인           |  O       |
 | contact  | String | 전화번호                |  O       |
 
+<br>
 <h4> Response </h4>
+<h5> - 성공 시 </h5>
 <pre>HTTP/1.1 200 OK</pre>
-- No Response Body
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
 <br><br>
 </details>
 
@@ -291,10 +306,10 @@ http://127.0.0.1/<b>user</b>/signin
 
 <pre><b>GET</b> /api/user/address HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
+<h4> Request </h4>
 - No Request Param & Body
 
-
+<br>
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
 
@@ -320,14 +335,19 @@ http://127.0.0.1/<b>user</b>/signin
 
 <pre><b>DELETE</b> /api/user/address HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
+<h4> Request </h4>
+<h5> - Request Body </h5>
+  
 | Name     | Type   | Description           |
 | -------- | ------ | --------------------- |
 | addressId  | Integer | 배송지 고유 식별번호    |
 
-
+<br>
 <h4> Response </h4>
+<h5> - 성공 시 </h5>
 <pre>HTTP/1.1 200 OK</pre>
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
 <br><br>
 </details>
 
@@ -336,17 +356,19 @@ http://127.0.0.1/<b>user</b>/signin
   
   
 <details>
-<summary> <h4> 판매자 등록 </h4> </summary>
+<summary> <h4> [회원] 판매자 등록 </h4> </summary>
  상품 판매 권한을 취득하기 위해 판매자 정보를 등록합니다. <br><br>
 
 <pre><b>POST</b> /api/user/seller HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
-| Name     | Type   | Description           |
-| -------- | ------ | --------------------- |
-| businessRegNo  | String | 사업자 등록번호    |
+<h4> Request </h4>
+<h5> - Request Body </h5>
+  
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | --------- | 
+| businessRegNo  | String | 사업자 등록번호    | O |
 
-
+<br>  
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
 <br><br>
@@ -357,22 +379,21 @@ http://127.0.0.1/<b>user</b>/signin
 
 
 <details>
-<summary> <h4> 판매자 권한 제거 </h4> </summary>
+<summary> <h4> [회원] 판매자 권한 제거 </h4> </summary>
  등록된 판매자 정보를 제거합니다. <br><br>
 
 <pre><b>DELETE</b> /api/user/seller HTTP/1.1</pre>
 
-<h4> RequestBody </h4>
+<h4> Request </h4>
+<h5> - Request Body </h5>
+  
 | Name     | Type   | Description           | Mandatory |
 | -------- | ------ | --------------------- | ---------- |
-| businessRegNo  | String | 사업자 등록번호    |
+| businessRegNo  | String | 사업자 등록번호    | O |
 
-
+<br>
 <h4> Response </h4>
 <pre>HTTP/1.1 200 OK</pre>
-| Name     | Type   | Description           |
-| -------- | ------ | --------------------- |
-| businessRegNo  | String | 사업자 등록번호    |
 </details>
 <br><br>
 </details>
