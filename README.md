@@ -404,6 +404,541 @@ http://127.0.0.1/<b>user</b>/signin
 
 <details>
 <summary> <h3> 상품 도메인 </h3> </summary>
+
+<details>
+<summary> <h4> [상품] 상품 등록 </h4> </summary>
+ 새로운 상품 정보를 등록합니다. <br><br>
+
+<pre><b>POST</b> /api/product/ HTTP/1.1</pre>
+
+<br>
+<h4> Request </h4>
+
+<h5> -RequestPart </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| productName | String | 상품명           |  O       |
+| productPrice | Integer | 상품가격            |  O       |
+| productImgFileName | String | 상품이미지파일명           |  O       |
+| productImgPath | String | 상품이미지파일경로           |  O       |
+| productDescription | String | 상품상세설명                |  O       |
+| productQuantity | Integer | 상품수량                |  O       |
+| categoryId  | Integer | 상품카테고리번호                |  O       |
+| imgFile  | MultipartFile | 상품이미지파일<br>초기값: default.jpg  |  X       |
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+
+
+
+  
+  
+<details>
+<summary> <h4> [상품] 상품 리스트 불러오기 </h4> </summary>
+ 상품 리스트를 가져옵니다. <br><br>
+
+<pre><b>GET</b> /api/product HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -RequestParam </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| categoryId  | Integer | 카테고리 식별 번호<br>초기값 : 0  |  X |
+| userType  | String | 사용자 타입<br>초기값 : "BUYER"  | X |
+| search | String | 상품검색명  | X |
+| sortBy | String | 상품 정렬 기준(초기값:"default") | X |
+| size | Integer | 한 페이지 내에 보여주는 상품 개수<br>초기값 : 10 | X | 
+| page | Integer | 현재 페이지<br>초기값 : 1 | X | 
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| score | Integer | 평균 평점  |  
+| productName | String | 상품명 | 
+| productPrice | Integer | 상품가격 |
+| productImgFileName | String | 상품이미지파일명 |
+| productImgPath | String | 상품이미지파일경로 |
+| productDescription | String | 상품상세설명 |
+| productQuantity | Integer | 상품수량 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+
+
+
+<details>
+<summary> <h4> [상품] 상품 상세 정보 조회 </h4> </summary>
+ 선택한 상품 정보를 상세 조회합니다. <br><br>
+
+<pre><b>GET</b> /api/product/{product_id} HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id  | Integer | 상품 식별 번호 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| productId | Integer | 상품 식별 번호 |
+| productName | String | 상품명 | 
+| productPrice | Integer | 상품가격 |
+| productImgFileName | String | 상품이미지파일명 |
+| productImgPath | String | 상품이미지파일경로 |
+| productDescription | String | 상품상세설명 |
+| productQuantity | Integer | 상품수량 |
+| categoryId | Integer | 카테고리 식별 번호 |
+| categoryName | String | 카테고리 이름 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+
+
+
+
+
+<details>
+<summary> <h4> [상품] 상품 정보 수정 </h4> </summary>
+ 선택한 상품 정보를 수정합니다. <br><br>
+
+<pre><b>PATCH</b> /api/product/{product_id} HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id  | Integer | 상품 식별 번호 | O |
+
+<h5> -RequestPart </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| productName | String | 상품명           |  O       |
+| productPrice | Integer | 상품가격            |  O       |
+| productImgFileName | String | 상품이미지파일명           |  O       |
+| productImgPath | String | 상품이미지파일경로           |  O       |
+| productDescription | String | 상품상세설명                |  O       |
+| productQuantity | Integer | 상품수량                |  O       |
+| categoryId  | Integer | 상품카테고리번호                |  O       |
+| imgFile  | MultipartFile | 상품이미지파일<br>초기값: 기존이미지파일  |  X       |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+  
+  
+<details>
+<summary> <h4> [상품] 상품 삭제 </h4> </summary>
+ 선택한 상품을 삭제합니다. <br><br>
+
+<pre><b>DELETE</b> /api/product/{product_id} HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id  | Integer | 상품 식별 번호 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+
+
+<details>
+<summary> <h4> [상품] 상품 이미지 불러오기 </h4> </summary>
+ 상품의 이미지를 출력합니다. <br><br>
+
+<pre><b>GET</b> /api/product/img HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -RequestParam </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| productImgFileName | String | 상품 파일 이미지 이름 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+이미지 반환
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>   
+
+<details> 
+<summary> <h4> [상품] 카테고리 리스트 불러오기 </h4> </summary>
+ 상품 등록 시 필요한 카테고리 목록을 출력합니다. <br><br>
+<pre><b>GET</b> /api/category HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> - URL Only
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| categoryId | Integer | 카테고리 식별 번호 |
+| categoryName | String | 카테고리 이름 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>  
+
+
+<details>
+<summary> <h4> [상품] 장바구니 등록 </h4> </summary>
+ 장바구니를 등록합니다. <br><br>
+
+<pre><b>POST</b> /api/product/cart HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -RequestBody </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| userId | Integer | 사용자 식별 번호 | O |
+| productId | Integer | 상품 식별 번호 | O |
+| quantity | Integer | 장바구니에 담은 상품 수량 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+
+
+<details>
+<summary> <h4> [상품] 장바구니 수정 </h4> </summary>
+ 장바구니 목록에서 장바구니에 담은 상품 수량을 수정합니다. <br><br>
+
+<pre><b>PATCH</b> /api/product/cart HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -RequestBody </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| userId | Integer | 사용자 식별 번호 | O |
+| productId | Integer | 상품 식별 번호 | O |
+| quantity | Integer | 장바구니에 담은 상품 수량 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>       
+
+
+<details>
+<summary> <h4> [상품] 장바구니 삭제 </h4> </summary>
+ 장바구니 목록에서 일부 목록을 삭제합니다. <br><br>
+
+<pre><b>DELETE</b> /api/product/cart HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -RequestBody </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| userId | Integer | 사용자 식별 번호 | O |
+| productId | Integer | 상품 식별 번호 | O |
+| quantity | Integer | 장바구니에 담은 상품 수량 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>       
+
+
+<details>
+<summary> <h4> [상품] 댓글 등록 </h4> </summary>
+ 상품 구매 후 댓글을 등록합니다. <br><br>
+
+<pre><b>POST</b> /api/product/{product_id}/comment HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id | Integer | 상품 식별 번호 | O |
+
+<h5> -RequestBody </h5>
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| orderId | Integer | 주문 식별 번호 | O |
+| productId | Integer | 상품 식별 번호 | O |
+| score | Integer | 평점 | O |
+| content | String | 댓글내용 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>
+
+
+<details>
+<summary> <h4> [상품] 댓글 상세 정보 불러오기 </h4> </summary>
+ 댓글에 대한 상세 정보를 불러옵니다. <br><br>
+
+<pre><b>GET</b> /api/product/{product_id}/comment/{comment_id} HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id | Integer | 상품 식별 번호 | O |
+| comment_id | Integer | 댓글 식별 번호 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| commentId | Integer | 댓글 식별 번호 |
+| orderId | Integer | 주문 식별 번호 | 
+| productId | Integer | 상품 식별 번호 |
+| score | Integer | 평점 |
+| content | String | 댓글 내용 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>      
+
+
+<details>
+<summary> <h4> [상품] 댓글 수정 </h4> </summary>
+ 사용자가 작성한 댓글 내용을 수정합니다. <br><br>
+
+<pre><b>PATCH</b> /api/product/{product_id}/comment/{comment_id} HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id | Integer | 상품 식별 번호 | O |
+| comment_id | Integer | 댓글 식별 번호 | O |
+
+<h5> -RequestBody </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| commentId | Integer | 댓글 식별 번호 | O |
+| orderId | Integer | 주문 식별 번호 | O |
+| productId | Integer | 상품 식별 번호 | O |
+| score | Integer | 평점 | O |
+| content | String | 댓글 내용 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>       
+
+
+<details>
+<summary> <h4> [상품] 댓글 삭제 </h4> </summary>
+ 사용자가 작성한 댓글을 삭제합니다. <br><br>
+
+<pre><b>DELETE</b> /api/product/{product_id}/comment/{comment_id} HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id | Integer | 상품 식별 번호 | O |
+| comment_id | Integer | 댓글 식별 번호 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+</pre>
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>       
+
+
+<details>
+<summary> <h4> [상품] 댓글 리스트 불러오기 </h4> </summary>
+ 상품 상세 조회 시 상품과 관련된 댓글 목록을 불러옵니다. <br><br>
+
+<pre><b>GET</b> /api/product/{product_id}/comment/ HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id | Integer | 상품 식별 번호 | O |
+
+<h5> -RequestParam </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| page | Integer | 상품 식별 번호<br> 초기값 : 0 | O |
+| size | Integer | 댓글 식별 번호<br> 초기값 : 10 | O |
+| userId | Integer | 사용자 식별 번호 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| commentId | Integer | 댓글 식별 번호 |
+| orderId | Integer | 주문 식별 번호 | 
+| productId | Integer | 상품 식별 번호 |
+| score | Integer | 평점 |
+| content | String | 댓글 내용 |
+| name | String | 유저 이름 |
+| createdAt | String | 댓글 작성 시간 (Unix timestamp, 13 digits)|
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>   
+
+
+
+<details>
+<summary> <h4> [상품] 상품에 달린 개수 불러오기 </h4> </summary>
+ 상품에 관련된 총 댓글 개수를 불러옵니다. <br><br>
+
+<pre><b>GET</b> /api/product/{product_id}/comment/count HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> -PathVariable </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| product_id | Integer | 상품 식별 번호 | O |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| commentCount | Integer | 댓글 개수 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>   
+
+
+
+
+<details>
+<summary> <h4> [상품] 상품 개수 불러오기 </h4> </summary>
+ 카테고리별 등 조건에 따른 상품 총 개수를 불러옵니다. <br><br>
+
+<pre><b>GET</b> /api/product/count HTTP/1.1</pre>
+<br>
+<h4> Request </h4>
+<h5> - RequestParam </h5>
+
+| Name     | Type   | Description           | Mandatory |
+| -------- | ------ | --------------------- | -------- |
+| categoryId | Integer | 카테고리 식별 번호<br> 초기값 : 0 | X |
+| userType | String | 사용자 유형 <br> 초기값 : "BUYER" | X |
+| search | String | 상품 검색명 | X |
+
+<h4> Response </h4>
+<h5> - 성공 시 </h5>
+<pre>HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+</pre>
+
+| Name     | Type   | Description           | 
+| -------- | ------ | --------------------- | 
+| productCount | Integer | 상품 개수 |
+
+<h5> - 실패 시 </h5>
+<pre>HTTP/1.1 404 Not Found</pre>
+<br><br>
+</details>   
+  
+  
 </details>
 
 
