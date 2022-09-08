@@ -1224,11 +1224,6 @@ Content-Type: application/json;charset=UTF-8
 
 <br>
 
-## 설치 방법
-    - …
-
-<br>
-
 ## 기술 세부 사양
 <table>
     <thead>
@@ -1244,29 +1239,23 @@ Content-Type: application/json;charset=UTF-8
     </thead>
        <tbody>
         <tr>
-            <td rowspan="4">공통</td>
+            <td rowspan="3">공통</td>
             <td>버전 관리 도구</td>
-            <td>Github</td>
+            <td>Git</td>
             <td>-</td>
-            <td>-</td>
+            <td>팀 구성원에가 가장 익숙한 기술임</td>
         </tr>
         <tr>
             <td>이슈 관리 도구</td>
             <td>Github Issue</td>
             <td> - </td>
-            <td> - </td>
+            <td>팀 구성원이 Confluence, JIRA 가 익숙하지 않고, 빠르게 적응 가능한 Github Issue 및 Projects 를 사용함 </td>
         </tr>
         <tr>
             <td>사용자 인증 방식</td>
             <td>Session Cookie</td>
             <td>-</td>
-            <td>-</td>
-        </tr>
-        <tr>
-            <td>민감한 데이터 관리 방식</td>
-            <td>단방향 암호화 기법 (SHA256)</td>
-            <td> - </td>
-            <td> - </td>
+            <td>JWT 방식은 쿠키 토큰 탈취 시 Attacker 가 Victim 의 권한으로 인증이 가능한 문제가 있고, 서버에서 즉시 인증만료 설정을 할 수 없음</td>
         </tr>
         <tr>
             <td rowspan="2">프론트엔드</td>
@@ -1277,40 +1266,34 @@ Content-Type: application/json;charset=UTF-8
         </tr>
         <tr>
             <td>통신 라이브러리</td>
-            <td>Axios</td>
-            <td>0.27.2</td>
+            <td>JQuery</td>
+            <td>3.6.x</td>
             <td> - </td>
         </tr>
         <tr>
-            <td rowspan="8"> 백엔드 </td>
-            <td>동적 웹 페이지</td>
-            <td>JSP</td>
-            <td>-</td>
-            <td>-</td>
-        </tr>
-        <tr>
+            <td rowspan="7"> 백엔드 </td>
             <td>의존성 관리 도구</td>
             <td>Gradle</td>
             <td>7.x</td>
-            <td>-</td>
+            <td>Groovy 언어를 사용하기에 Java 개발자가 읽기 편하고, maven 보다 빌드 속도가 더 빠름</td>
         </tr>
         <tr>
             <td>프로그래밍 언어</td>
             <td>Java</td>
             <td>17 (Stable)</td>
-            <td>자바 8, 11 보다 나은점(근거 관련 url)</td>
+            <td>현 시점으로부터 9년 간 지원 받을 수 있고, OpenJDK 8 보다 6년 더 지원 받을 수 있음 </td>
         </tr>
         <tr>
             <td>웹 프레임워크</td>
             <td>Spring Boot</td>
             <td>2.6.7 (Stable)</td>
-            <td></td>
+            <td>개발 시작 기준 가장 최신의 안정된 버전임</td>
         </tr>
         <tr>
             <td>웹 서버</td>
             <td>Tomcat</td>
             <td>9.0.62</td>
-            <td>10버전을 쓰지 않는 이유, 차이점, 내장서버</td>
+            <td>직접적으로 수정할 사항이 없었으므로 기본 내장 버전 사용함</td>
         </tr>
         <tr>
             <td>데이터베이스</td>
@@ -1322,7 +1305,7 @@ Content-Type: application/json;charset=UTF-8
             <td>SQL 매핑 프레임워크</td>
             <td>MyBatis</td>
             <td>3.5.10</td>
-            <td>팀 구성원에게 가장 익숙한 기술</td>
+            <td>팀 구성원에게 가장 익숙한 기술임</td>
         </tr>
     </tbody>
 </table>
